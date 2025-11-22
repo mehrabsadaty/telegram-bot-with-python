@@ -1,5 +1,5 @@
 from pyrogram import Client , filters
-from pyrogram.types import Message , ReplyKeyboardMarkup
+from pyrogram.types import Message , ReplyKeyboardMarkup ,InlineKeyboardMarkup , InlineKeyboardButton , CallbackQuery , ReplyKeyboardRemove
 
 
 
@@ -9,9 +9,13 @@ def my_handler (client : Client , massage : Message):
                        reply_markup=ReplyKeyboardMarkup(
                            [
                                ['/start' , 'hello'],
-                               ['help']
+                               ['/rmv']
                            ]
-                       ,resize_keyboard= True) 
+                       ,resize_keyboard= True , one_time_keyboard=True) 
                        )
     
-
+@Client.on_message(filters.command("rmv"))
+def remove_markup (client : Client , massage : Message):
+    massage.reply_text("removed"
+                      , reply_markup= ReplyKeyboardRemove()
+                      )
