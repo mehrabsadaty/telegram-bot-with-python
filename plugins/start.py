@@ -1,17 +1,16 @@
 from pyrogram import Client , filters
-from pyrogram.types import Message , ReplyKeyboardMarkup ,InlineKeyboardMarkup , InlineKeyboardButton , CallbackQuery , ReplyKeyboardRemove
-
+from pyrogram.types import Message , ReplyKeyboardMarkup ,InlineKeyboardMarkup , InlineKeyboardButton , CallbackQuery , ReplyKeyboardRemove 
 
 
 @Client.on_message(filters.command("start"))
 def my_handler (client : Client , massage : Message):
     massage.reply_text("hello" ,
-                       reply_markup=ReplyKeyboardMarkup(
+                       reply_markup= InlineKeyboardMarkup(
                            [
-                               ['/start' , 'hello'],
-                               ['/rmv']
+                               [InlineKeyboardButton(text="button1" , callback_data="button1")] , [InlineKeyboardButton(text="button2" , callback_data="button2")] ,
+                               [InlineKeyboardButton(text="button3" , url="https://google.com")]
                            ]
-                       ,resize_keyboard= True , one_time_keyboard=True) 
+                       ) 
                        )
     
 @Client.on_message(filters.command("rmv"))
